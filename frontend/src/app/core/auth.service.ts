@@ -23,4 +23,10 @@ export class AuthService {
         tap(() => (this.isLoggedIn = true))
       );
     }
+
+    logout() {
+      return this.http.post(`${this.api}/logout`, {}, { withCredentials: true }).pipe(
+        tap(() => (this.isLoggedIn = false))
+      );
+    }
   }

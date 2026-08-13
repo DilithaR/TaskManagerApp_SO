@@ -96,3 +96,21 @@ button.danger {
   color: #6b7280;
   margin-top: 0;
 }
+
+.desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}

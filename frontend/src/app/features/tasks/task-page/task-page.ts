@@ -1,6 +1,8 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TaskDto, TasksService } from '../../../core/tasks.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth.service';
 
 @Component({
   selector: 'app-task-page',
@@ -10,6 +12,8 @@ import { TaskDto, TasksService } from '../../../core/tasks.service';
 })
 export class TaskPage implements OnInit {
   private tasksApi = inject(TasksService);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   tasks = signal<TaskDto[]>([]);
   title = '';
@@ -71,5 +75,12 @@ export class TaskPage implements OnInit {
 
   remove(task: TaskDto) {
     this.tasksApi.delete(task.id).subscribe({ next: () => this.reload() });
+  }
+
+  logout() {
+    this.auth.logout().subscribe({
+      next: () => this.router.navigateByUrl('/login'),
+      error: () => this.router.navigateByUrl('/login'),
+    });
   }
 }

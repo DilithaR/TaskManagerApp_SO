@@ -1,3 +1,7 @@
+<header class="topbar">
+  <h1>TaskManagerApp</h1>
+  <button type="button" (click)="logout()">Logout</button>
+</header>
 <div class="layout">
   <section class="card">
     <h2>Tasks</h2>
@@ -11,7 +15,12 @@
       @for (t of tasks(); track t.id) {
         <li class="task-row">
           <div class="task-info">
-            <strong>{{ t.title }}</strong>
+            <div>
+              <strong>{{ t.title }}</strong>
+              @if (t.description) {
+                <p class="desc">{{ t.description }}</p>
+              }
+            </div>
             <span class="badge" [class.done]="t.isCompleted">
               {{ t.isCompleted ? 'done' : 'open' }}
             </span>
