@@ -1,0 +1,24 @@
+<div class="layout">
+    <section>
+      <h2>Tasks</h2>
+      <p>{{ error }}</p>
+      <ul>
+        @for (t of tasks; track t.id) {
+          <li>
+            <strong>{{ t.title }}</strong>
+            <span>{{ t.isCompleted ? 'done' : 'open' }}</span>
+            <button type="button" (click)="toggle(t)">Toggle</button>
+            <button type="button" (click)="remove(t)">Delete</button>
+          </li>
+        }
+      </ul>
+    </section>
+    <section>
+      <h2>Add task</h2>
+      <form (ngSubmit)="add()">
+        <input name="title" [(ngModel)]="title" placeholder="Title" />
+        <input name="description" [(ngModel)]="description" placeholder="Description" />
+        <button type="submit">Add</button>
+      </form>
+    </section>
+  </div>

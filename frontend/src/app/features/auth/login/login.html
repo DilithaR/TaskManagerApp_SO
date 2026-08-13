@@ -1,0 +1,7 @@
+<h1>Login</h1>
+<form (ngSubmit)="submit()">
+  <input name="username" [(ngModel)]="username" placeholder="username" />
+  <input name="password" [(ngModel)]="password" type="password" placeholder="password" />
+  <button type="submit">Login</button>
+</form>
+<p>{{ error }}</p>
