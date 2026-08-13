@@ -21,6 +21,9 @@ public class UpdateTaskCommandHandler : IRequestHandler<UpdateTaskCommand, TaskD
     {
         var task = await _tasks.GetByIdAsync(request.Id, cancellationToken)
             ?? throw new KeyNotFoundException($"Task {request.Id} was not found.");
+        var existing = await _tasks.GetByTitleAsync(request.Title.Trim(), cancellationToken);
+            if (existing is not null && existing.Id != request.Id)
+                throw new InvalidOperationException("A task with this name already exists.");
         task.Title = request.Title;
         task.Description = request.Description;
         task.UpdatedAt = DateTime.UtcNow;

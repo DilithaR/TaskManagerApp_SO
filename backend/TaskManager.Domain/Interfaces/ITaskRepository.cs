@@ -10,7 +10,7 @@ public interface ITaskRepository
         string? sortBy,
         string? sortDir,
         CancellationToken cancellationToken = default);
-    Task<TaskItem?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<TaskItem?> GetByTitleAsync(string title, CancellationToken cancellationToken = default);
     Task AddAsync(TaskItem task, CancellationToken cancellationToken = default);
     Task UpdateAsync(TaskItem task, CancellationToken cancellationToken = default);
     Task DeleteAsync(TaskItem task, CancellationToken cancellationToken = default);

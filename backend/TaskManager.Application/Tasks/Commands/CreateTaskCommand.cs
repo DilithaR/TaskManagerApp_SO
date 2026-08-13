@@ -19,6 +19,10 @@ public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, TaskD
     }
     public async Task<TaskDto> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
     {
+        var existing = await _tasks.GetByTitleAsync(request.Title.Trim(), cancellationToken);
+        if (existing is not null)
+            throw new InvalidOperationException("A task with this name already exists.");
+
         var now = DateTime.UtcNow;
         var task = new TaskItem
         {

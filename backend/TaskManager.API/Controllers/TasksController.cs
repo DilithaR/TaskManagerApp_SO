@@ -49,15 +49,29 @@ public class TasksController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateTaskCommand command, CancellationToken cancellationToken)
     {
-        var created = await _mediator.Send(command, cancellationToken);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        try
+        {
+            var created = await _mediator.Send(command, cancellationToken);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, UpdateTaskCommand command, CancellationToken cancellationToken)
     {
         command.Id = id;
-        return Ok(await _mediator.Send(command, cancellationToken));
+        try
+        {
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpDelete("{id:int}")]

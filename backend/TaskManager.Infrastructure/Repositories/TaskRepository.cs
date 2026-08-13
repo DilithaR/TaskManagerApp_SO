@@ -49,9 +49,11 @@ public class TaskRepository : ITaskRepository
         return (items, totalCount);
     }
 
-    public Task<TaskItem?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public Task<TaskItem?> GetByTitleAsync(string title, CancellationToken cancellationToken = default)
     {
-        return _db.Tasks.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+        return _db.Tasks.FirstOrDefaultAsync(
+            t => t.Title.ToLower() == title.ToLower(),
+            cancellationToken);
     }
 
     public async Task AddAsync(TaskItem task, CancellationToken cancellationToken = default)

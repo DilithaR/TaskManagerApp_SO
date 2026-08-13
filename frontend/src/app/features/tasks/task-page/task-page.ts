@@ -39,12 +39,21 @@ export class TaskPage implements OnInit {
 
   save() {
     if (!this.title.trim()) return;
-
+  
+    const name = this.title.trim().toLowerCase();
+    const duplicate = this.tasks().some(
+      (t) => t.title.toLowerCase() === name && t.id !== this.editingId()
+    );
+    if (duplicate) {
+      this.error.set('A task with this name already exists.');
+      return;
+    }
+  
     const request =
       this.editingId() === null
         ? this.tasksApi.create(this.title, this.description)
         : this.tasksApi.update(this.editingId()!, this.title, this.description);
-
+  
     request.subscribe({
       next: () => {
         this.editingId.set(null);
@@ -52,7 +61,7 @@ export class TaskPage implements OnInit {
         this.description = '';
         this.reload();
       },
-      error: () => this.error.set('Save failed'),
+      error: () => this.error.set('A task with this name already exists.'),
     });
   }
 
