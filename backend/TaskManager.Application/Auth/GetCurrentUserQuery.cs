@@ -20,6 +20,12 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, U
 
     public async Task<UserDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        var user = await _users.GetByUsernameAsync(/* wait - we only have GetByUsername */)
+        var user = await _users.GetByIdAsync(request.UserId, cancellationToken)
+            ?? throw new UnauthorizedAccessException("User was not found.");
+        return new UserDto
+        {
+            Id = user.Id,
+            Username = user.Username
+        };
     }
 }
