@@ -15,6 +15,7 @@ export class TaskPage implements OnInit {
   title = '';
   description = '';
   error = '';
+  editingId: number | null = null;
 
   ngOnInit() {
     this.reload();
@@ -27,15 +28,28 @@ export class TaskPage implements OnInit {
     });
   }
 
-  add() {
+  startEdit(task: TaskDto) {
+    this.editingId = task.id;
+    this.title = task.title;
+    this.description = task.description ?? '';
+  }
+
+  save() {
     if (!this.title.trim()) return;
-    this.tasksApi.create(this.title, this.description).subscribe({
+
+    const request =
+      this.editingId === null
+        ? this.tasksApi.create(this.title, this.description)
+        : this.tasksApi.update(this.editingId, this.title, this.description);
+
+    request.subscribe({
       next: () => {
+        this.editingId = null;
         this.title = '';
         this.description = '';
         this.reload();
       },
-      error: () => (this.error = 'Create failed'),
+      error: () => (this.error = 'Save failed'),
     });
   }
 

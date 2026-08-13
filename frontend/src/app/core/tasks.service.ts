@@ -38,4 +38,11 @@ export class TasksService {
   delete(id: number) {
     return this.http.delete(`${this.api}/${id}`, { withCredentials: true });
   }
+  update(id: number, title: string, description?: string) {
+    return this.http.put<TaskDto>(
+      `${this.api}/${id}`,
+      { title, description },
+      { withCredentials: true }
+    );
+  }
 }
