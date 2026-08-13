@@ -1,5 +1,98 @@
 .layout {
-    display: flex;
-    gap: 2rem;
-    padding: 1rem;
-  }
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1f2937;
+}
+
+.card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+h2 {
+  margin: 0 0 1rem;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.done {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.actions,
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+  cursor: pointer;
+}
+
+button[type='submit'] {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+button.danger {
+  color: #b91c1c;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.hint {
+  color: #6b7280;
+  margin-top: 0;
+}

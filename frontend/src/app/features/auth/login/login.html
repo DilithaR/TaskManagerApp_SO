@@ -1,7 +1,14 @@
-<h1>Login</h1>
-<form (ngSubmit)="submit()">
-  <input name="username" [(ngModel)]="username" placeholder="username" />
-  <input name="password" [(ngModel)]="password" type="password" placeholder="password" />
-  <button type="submit">Login</button>
-</form>
-<p>{{ error }}</p>
+<div class="login-page">
+  <section class="card">
+    <h1>Login</h1>
+    <p class="hint">Sign in to manage tasks</p>
+    <form class="form" (ngSubmit)="submit()">
+      <input name="username" [(ngModel)]="username" placeholder="Username" />
+      <input name="password" [(ngModel)]="password" type="password" placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+  </section>
+</div>

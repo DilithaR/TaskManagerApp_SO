@@ -1,29 +1,43 @@
 <div class="layout">
-  <section>
+  <section class="card">
     <h2>Tasks</h2>
-    <p>{{ error }}</p>
-    <ul>
-      @for (t of tasks; track t.id) {
-        <li>
-          <strong>{{ t.title }}</strong>
-          <span>{{ t.isCompleted ? 'done' : 'open' }}</span>
-          <button type="button" (click)="startEdit(t)">Edit</button>
-          <button type="button" (click)="toggle(t)">Toggle</button>
-          <button type="button" (click)="remove(t)">Delete</button>
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+    @if (!error() && tasks().length === 0) {
+      <p class="hint">No tasks yet.</p>
+    }
+    <ul class="task-list">
+      @for (t of tasks(); track t.id) {
+        <li class="task-row">
+          <div class="task-info">
+            <strong>{{ t.title }}</strong>
+            <span class="badge" [class.done]="t.isCompleted">
+              {{ t.isCompleted ? 'done' : 'open' }}
+            </span>
+          </div>
+          <div class="actions">
+            <button type="button" (click)="startEdit(t)">Edit</button>
+            <button type="button" (click)="toggle(t)">{{ t.isCompleted ? 'Reopen' : 'Complete' }}</button>
+            <button type="button" class="danger" (click)="remove(t)">Delete</button>
+          </div>
         </li>
       }
     </ul>
   </section>
 
-  <section>
-    <h2>{{ editingId === null ? 'Add task' : 'Update task' }}</h2>
-    <p>{{ editingId === null ? 'New task' : 'Editing id ' + editingId }}</p>
-    <form (ngSubmit)="save()">
+  <section class="card">
+    <h2>{{ editingId() === null ? 'Add task' : 'Update task' }}</h2>
+    <p class="hint">{{ editingId() === null ? 'New task' : 'Editing id ' + editingId() }}</p>
+    <form class="form" (ngSubmit)="save()">
       <input name="title" [(ngModel)]="title" placeholder="Title" />
       <input name="description" [(ngModel)]="description" placeholder="Description" />
-      <button type="submit">
-        {{ editingId === null ? 'Add' : 'Update' }}
-      </button>
+      <div class="form-actions">
+        <button type="submit">{{ editingId() === null ? 'Add' : 'Update' }}</button>
+        @if (editingId() !== null) {
+          <button type="button" (click)="editingId.set(null); title = ''; description = ''">Cancel</button>
+        }
+      </div>
     </form>
   </section>
 </div>
