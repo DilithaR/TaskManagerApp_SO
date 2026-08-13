@@ -20,13 +20,17 @@ export class TaskPage implements OnInit {
   description = '';
   error = signal('');
   editingId = signal<number | null>(null);
+  search = '';
+  status = '';
+  sortBy = 'createdAt';
+  sortDir = 'desc';
 
   ngOnInit() {
     this.reload();
   }
 
   reload() {
-    this.tasksApi.getPage().subscribe({
+    this.tasksApi.getPage(1, 50, this.search, this.status, this.sortBy, this.sortDir).subscribe({
       next: (r) => {
         this.tasks.set(r.items ?? []);
         this.error.set('');

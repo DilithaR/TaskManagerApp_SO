@@ -5,6 +5,23 @@
 <div class="layout">
   <section class="card">
     <h2>Tasks</h2>
+    <div class="toolbar">
+      <input name="search" [(ngModel)]="search" (ngModelChange)="reload()" placeholder="Search" />
+      <select name="status" [(ngModel)]="status" (ngModelChange)="reload()">
+        <option value="">All</option>
+        <option value="false">Open</option>
+        <option value="true">Done</option>
+      </select>
+      <select name="sortBy" [(ngModel)]="sortBy" (ngModelChange)="reload()">
+        <option value="createdAt">Created</option>
+        <option value="title">Title</option>
+        <option value="updatedAt">Updated</option>
+      </select>
+      <select name="sortDir" [(ngModel)]="sortDir" (ngModelChange)="reload()">
+        <option value="desc">Newest</option>
+        <option value="asc">Oldest</option>
+      </select>
+    </div>
     @if (error()) {
       <p class="error">{{ error() }}</p>
     }

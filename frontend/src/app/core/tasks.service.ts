@@ -22,8 +22,14 @@ export class TasksService {
   private http = inject(HttpClient);
   private api = 'http://localhost:5206/api/tasks';
 
-  getPage(page = 1, pageSize = 10) {
-    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+  getPage(page = 1, pageSize = 50, search = '', status = '', sortBy = 'createdAt', sortDir = 'desc') {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize)
+      .set('sortBy', sortBy)
+      .set('sortDir', sortDir);
+    if (search.trim()) params = params.set('search', search.trim());
+    if (status === 'true' || status === 'false') params = params.set('isCompleted', status);
     return this.http.get<PagedResult<TaskDto>>(this.api, { params, withCredentials: true });
   }
 

@@ -114,3 +114,17 @@ button.danger {
   margin: 0;
   font-size: 1.25rem;
 }
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toolbar input,
+.toolbar select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
